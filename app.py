@@ -32,6 +32,8 @@ def get_all_person():
 @app.route('/api/v1/persons', methods=["POST"])
 def post_person():
     new_person = request.json
+    if len(new_person) == 0:
+        return make_response('Invalid data', 400)
     person = Person()
     person_id = person.create_new_person(new_person)
     if person_id is None:

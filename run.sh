@@ -1,2 +1,2 @@
-sh install_requirments.sh
+sh install_requirements.sh
 python3 app.py
