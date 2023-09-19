@@ -7,6 +7,12 @@ class Requests:
     def __init__(self):
         self.DB_URL = DB_URL
 
+        self.create_table_if_not_exists()
+
+    def create_table_if_not_exists(self):
+        if not self.check_persons_table():
+            self.create_table()
+
     def check_persons_table(self):
         connection = psycopg2.connect(self.DB_URL)
         cursor = connection.cursor()
@@ -19,5 +25,24 @@ class Requests:
         cursor.close()
         connection.close()
         return False
+
+    def create_table(self):
+        new_table = '''
+                            CREATE TABLE persons
+                            (
+                               id serial primary key,
+                               name varchar(50) not null,
+                               age integer,
+                               address varchar(50),
+                               work varchar(50)
+                            );
+                            '''
+        connection = psycopg2.connect(self.DB_URL)
+        cursor = connection.cursor()
+        cursor.execute(new_table)
+        connection.commit()
+        cursor.close()
+        connection.close()
+
 
 
