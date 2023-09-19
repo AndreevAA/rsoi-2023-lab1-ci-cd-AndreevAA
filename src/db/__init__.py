@@ -61,5 +61,29 @@ class Requests:
         self.close_connection()
         return persons
 
+    def add_person(self, new_person):
+        self.open_connection()
+        self.cursor.execute(f"INSERT INTO persons (name, address, work, age) VALUES ('{new_person['name']}', "
+                       f"'{new_person['address']}', '{new_person['work']}', '{new_person['age']}') RETURNING id;")
+        self.connection.commit()
+        person = self.cursor.fetchone()
+        self.close_connection()
+        return person[0]
 
+    def update_person(self, new_info, person_id):
+        self.open_connection()
+        self.cursor.execute(f"UPDATE persons SET name = '{new_info['name']}', address = '{new_info['address']}', "
+                       f"work = '{new_info['work']}', age = '{new_info['age']}' "
+                       f"WHERE id={person_id} RETURNING id, name, age, address, work;")
+        self.connection.commit()
+        person = self.cursor.fetchone()
+        self.close_connection()
+        return person
 
+    def delete_person(self, person_id):
+        self.open_connection()
+        self.cursor.execute(f"DELETE FROM persons WHERE id={person_id};")
+        rows_deleted = self.cursor.rowcount
+        self.connection.commit()
+        self.close_connection()
+        return rows_deleted
