@@ -9,21 +9,26 @@ class Requests:
 
         self.create_table_if_not_exists()
 
+    def open_connection(self):
+        self.connection = psycopg2.connect(self.DB_URL)
+        self.cursor = self.connection.cursor()
+
+    def close_connection(self):
+        self.cursor.close()
+        self.connection.close()
+
     def create_table_if_not_exists(self):
         if not self.check_persons_table():
             self.create_table()
 
     def check_persons_table(self):
-        connection = psycopg2.connect(self.DB_URL)
-        cursor = connection.cursor()
-        cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
-        for table in cursor.fetchall():
+        self.open_connection()
+        self.cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
+        for table in self.cursor.fetchall():
             if table[0] == "persons":
-                cursor.close()
-                connection.close()
+                self.close_connection()
                 return True
-        cursor.close()
-        connection.close()
+        self.close_connection()
         return False
 
     def create_table(self):
@@ -37,12 +42,17 @@ class Requests:
                                work varchar(50)
                             );
                             '''
-        connection = psycopg2.connect(self.DB_URL)
-        cursor = connection.cursor()
-        cursor.execute(new_table)
-        connection.commit()
-        cursor.close()
-        connection.close()
+        self.open_connection()
+        self.cursor.execute(new_table)
+        self.connection.commit()
+        self.close_connection()
+
+    def get_person(self, person_id):
+        self.open_connection()
+        self.cursor.execute(f"SELECT * From persons WHERE id={person_id};")
+        person = self.cursor.fetchone()
+        self.close_connection()
+        return person
 
 
 
