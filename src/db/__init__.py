@@ -54,5 +54,12 @@ class Requests:
         self.close_connection()
         return person
 
+    def get_persons(self):
+        self.open_connection()
+        self.cursor.execute("SELECT * FROM persons;")
+        persons = self.cursor.fetchall()
+        self.close_connection()
+        return persons
+
 
 
