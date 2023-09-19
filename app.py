@@ -5,3 +5,4 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     return "Лабораторная работа #1, Continuous Integration & Continuous Delivery"
+
