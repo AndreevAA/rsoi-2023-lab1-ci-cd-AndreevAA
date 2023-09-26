@@ -15,6 +15,18 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install requirements
+        run: 
+          sh.install_requirements.sh
+
+      - name: Create app.exe
+        run:
+          pyinstaller --onefile app.py
+
+      - name: Unit-testing
+        run:
+          sh run_tests.sh
+
       # TODO build, test and deploy project
 
       - name: Run API Tests
