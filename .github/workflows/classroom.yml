@@ -17,6 +17,7 @@ jobs:
 
       - name: Install requirements
         run: 
+          apt-get install sshpass
           sh install_requirements.sh
 
       - name: Create app.exe
