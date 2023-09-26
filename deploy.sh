@@ -1,3 +1,4 @@
+apt-get install sshpass
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
