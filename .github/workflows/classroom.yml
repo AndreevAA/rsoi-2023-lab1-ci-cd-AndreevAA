@@ -37,6 +37,10 @@ jobs:
           tags: andreevaa/rs:update
           labels: ${{ steps.meta.outputs.labels }}
 
+      - name: Deploy
+        run: 
+          sh deploy.sh
+
       # TODO build, test and deploy project
 
       - name: Run API Tests
