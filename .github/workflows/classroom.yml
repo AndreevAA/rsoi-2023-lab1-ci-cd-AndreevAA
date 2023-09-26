@@ -38,6 +38,14 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Deploy
+        uses: matheusvanzan/sshpass-action@v2
+        with:
+          host: ${{ secrets.VM2_IP }}
+          user: ${{ secrets.SERVER_USER }}
+          pass: ${{ secrets.VM2_PASSWORD }}
+          run: |
+            cd rsoi-2023-lab1-ci-cd-AndreevAA
+            sudo docker-compose up --build -d
         run: 
           sh deploy.sh
 
