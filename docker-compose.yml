@@ -14,5 +14,16 @@ services:
     ports:
       - "5432:5432"
 
+  backend:
+    image: andreevaa/rs:update
+    container_name: backend
+    depends_on:
+      - postgres
+    restart: always
+    volumes:
+      - ~/lab1/configs/appsettings.json:/app/appsettings.json
+    ports:
+      - "8080:80"
+
 volumes:
   db-data:
