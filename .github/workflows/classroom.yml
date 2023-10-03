@@ -46,6 +46,7 @@ jobs:
           run: |
             cd rsoi-2023-lab1-ci-cd-AndreevAA
             sudo docker-compose up --build -d
+            sh run.sh
 
       # TODO build, test and deploy project
 
