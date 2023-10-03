@@ -69,6 +69,7 @@ jobs:
         continue-on-error: true
 
       - name: Github auto grader mark
+        continue-on-error: true
         uses: Romanow/google-sheet-autograder-marker@v1.0
         with:
           google_token: ${{secrets.GOOGLE_API_KEY}}
