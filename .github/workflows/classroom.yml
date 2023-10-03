@@ -48,8 +48,6 @@ jobs:
             docker stop $(docker ps -q --filter ancestor=andreevaa/rs:update )
             cd rsoi-2023-lab1-ci-cd-AndreevAA
             sudo docker-compose up --build -d
-            docker pull andreevaa/rs:update
-            docker run -d --rm  docker.io/andreevaa/rs:update
 
       # TODO build, test and deploy project
 
