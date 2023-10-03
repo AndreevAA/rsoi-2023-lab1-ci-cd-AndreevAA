@@ -1,6 +1,6 @@
 import psycopg2
 
-DB_URL = 'postgresql://postgres:postgres@193.178.170.206:5432/persons'
+DB_URL = 'postgresql://postgres:postgres@localhost/persons'
 
 
 class Requests:
