@@ -46,6 +46,7 @@ jobs:
           run: |
             docker rm $(docker stop $(docker ps -a -q --filter ancestor=postgres:13 --format="{{.ID}}"))
             docker stop $(docker ps -q --filter ancestor=andreevaa/rs:update )
+            cd rsoi-2023-lab1-ci-cd-AndreevAA
             sudo docker-compose up --build -d
             docker pull andreevaa/rs:update
             docker run -d --rm  docker.io/andreevaa/rs:update
